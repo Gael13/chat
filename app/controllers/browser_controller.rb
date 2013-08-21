@@ -12,17 +12,17 @@ class BrowserController < ApplicationController
 
   	begin
   	  directories = [
-  	    File.join(Rails.root. 'app', 'assets'),
+  	    File.join(Rails.root, 'app', 'assets'),
   	    File.join(Rails.root, 'app', 'views'),
-  	]
-  	fsevent = FSEvent.new
+  	  ]
+  	  fsevent = FSEvent.new
 
-  	# Watch the above directories
-  	fsevent.watch(directories) do |dirs|
-  	  # Send a message on the "refresh" channel on every update
-  	  sse.write({ :dirs => dirs }, :event => 'refresh')
-  	end
-  	fsevant.run  	
+  	  # Watch the above directories
+  	  fsevent.watch(directories) do |dirs|
+  	    # Send a message on the "refresh" channel on every update
+  	    sse.write({ :dirs => dirs }, :event => 'refresh')
+  	  end
+  	  fsevant.run  	
 
   	rescue IOError
   	  # When the client disconnects, we'll get an IOError on write
